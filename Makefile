@@ -1,28 +1,34 @@
-# Makefile for LibraryAnalyzer
 
-# Java Compiler
+---
+
+## ✅ `Makefile`
+
+```makefile
+# Makefile for LibraryAnalyzer project
+
+# Java commands
 JAVAC = javac
 JAVA = java
 
-# Main class name
-MAIN = LibraryAnalyzer
+# Source and output folders
+SRC = app/src/main/java
+OUT = out
 
-# Source files
-SOURCES = $(MAIN).java
+# Full path to main source file
+MAIN_SRC = $(SRC)/com/example/task/LibraryAnalyzer.java
 
-# Class files
-CLASSES = $(MAIN).class
+# Main class with full package name
+MAIN_CLASS = com.example.task.LibraryAnalyzer
 
-# Default target: compile
-all: $(CLASSES)
+# Compile the program
+compile:
+	mkdir -p $(OUT)
+	$(JAVAC) -d $(OUT) $(MAIN_SRC)
 
-$(CLASSES): $(SOURCES)
-	$(JAVAC) $(SOURCES)
+# Run the program (default input folder is sample_libs)
+run: compile
+	$(JAVA) -cp $(OUT) $(MAIN_CLASS) sample_libs
 
-# Run the program with a folder argument
-run:
-	$(JAVA) $(MAIN) ./sample_libs
-
-# Clean up class files
+# Clean compiled files
 clean:
-	rm -f *.class
+	rm -rf $(OUT)
